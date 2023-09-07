@@ -1,0 +1,75 @@
+{% load compress %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Movie Details App</title>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+        {% compress css %}
+            <link rel="stylesheet" href="{% static 'src/output.css' %}">
+        {% endcompress %}
+    </head>
+        <body>
+            <div class="bg-bc min-h-screen">
+                <div class="flex flex-col items-center relative min-h-screen">
+                    <h2 class="font-raleway font-bold text-6xl text-primary pt-20 pb-6 md:text-3xl">Movie 
+                        <span class="text-gray-700">Details</span> App </h2>
+                    <h3 class="text-lightGrey text-2xl font-raleway font-bold uppercase tracking-wide mb-12 md:text-base md:px-4 md:text-center">
+                        Get info about any movie
+                    </h3>
+
+                    <div class="flex flex-col justify-between items-center w-full md:items-center">
+                        <div class="flex justify-center md:flex-col">
+                            <form method="POST" action="" class='flex flex-col md:flex-row space-x-3 space-y-4'>
+                                {% csrf_token %}
+                                <input type="text" class="border-none outline-none bg-primary px-4 py-2 rounded-sm font-raleway md:w-full"
+                                    placeholder="Search for any movie..." name="title"/>
+                                <button
+                                    class="outline-none font-bold font-raleway px-4 py-2 rounded-lg bg-gray-500 
+                                        text-gray-200 transition duration-300 
+                                        hover:bg-gray-700 hover:text-gray-900 md:ml-0 md:mt-4"
+                                        type="submit"
+                                    >
+                                    Search
+                                </button>
+                            </form>
+                        </div>
+
+                        {% if movie_data %}
+                            <div class="flex mt-12 w-3/6 h-4/5 border border-primary md:w-4/6 md:h-full mb-12">
+                                <div class="flex flex-col md:flex-row justify-center items-center">
+                                    <img src={{ movie_data.imageUrl }} alt={{ movie_data.title }} width="220" height="300">
+                                    <div class="flex flex-col justify-center ml-8 md:mt-6 mb-3">
+                                        <h2 class="text-primary text-xl text-raleway font-bold tracking-wider md:text-base">
+                                            <span class="text-gray-700 uppercase">Title: </span>
+                                            {{ movie_data.title }}
+                                        </h2>
+                                        <h2 class="text-primary text-xl text-raleway font-bold mt-8 tracking-wider md:text-base md:mt-6">
+                                            <span class="text-gray-700 uppercase">Year: </span>
+                                            {{ movie_data.year }}
+                                        </h2>
+                                        <h2 class="text-primary text-xl text-raleway font-bold mt-8 tracking-wider md:text-base md:mt-6">
+                                            <span class="text-gray-700 uppercase">Stars: </span>
+                                            {{ movie_data.stars }}
+                                        </h2>
+
+                                        <link>
+                                        <a href={{ movie_data.movie_url }}>
+                                            <button
+                                                class="outline-none font-bold font-raleway mt-8 px-12 py-2 rounded-sm bg-gray-500 text-primary transition duration-300 hover:bg-gray-700 hover:text-white md:ml-0 md:my-4">
+                                                Visit on IMDB
+                                            </button>
+                                        </a>
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </body>
+</html>
