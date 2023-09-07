@@ -33,7 +33,7 @@ def get_movie_info(title):
     url = "https://imdb8.p.rapidapi.com/auto-complete"
     querystring = {"q":title}
     headers = {
-        "X-RapidAPI-Key": "dab64a933emshd4feed0a110bc98p1fa4f0jsncfc1e252bd18",
+        "X-RapidAPI-Key": "your api key",
         "X-RapidAPI-Host": "imdb8.p.rapidapi.com"
     }
 
